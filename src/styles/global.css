@@ -39,46 +39,6 @@ a {
   text-decoration: none;
 }
 
-.container {
-  height: 100vh;
-  max-width: 992px;
-  margin: 0 auto;
-  padding: 2.5rem 2rem;
-
-  display: flex;
-  flex-direction: column;
-}
-
-.experience-bar {
-  align-items: center;
-  display: flex;
-}
-
-.experience-bar span {
-  font-size: 1rem;
-}
-
-.experience-bar > div {
-  background-color: var(--gray-line);
-  border-radius: 4px;
-  flex: 1;
-  height: 4px;
-  margin: 0 1.5rem;
-  position: relative;
-}
-
-.experience-bar > div > div {
-  height: 4px;
-  border-radius: 4px;
-  background-color: var(--green);
-}
-
-span.current-experience {
-  position: absolute;
-  top: 12px;
-  transform: translateX(-50%);
-}
-
 @media (max-width: 1080px) {
   html {
     font-size: 93.75%;
