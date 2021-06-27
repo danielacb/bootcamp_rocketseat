@@ -18,9 +18,7 @@ export function NewRoom() {
   async function handleCreateRoom(e: FormEvent) {
     e.preventDefault();
 
-    if (newRoom.trim() === "") {
-      return;
-    }
+    if (newRoom.trim() === "") return;
 
     const roomRef = database.ref("rooms");
 
