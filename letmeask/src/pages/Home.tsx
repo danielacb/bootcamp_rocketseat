@@ -14,7 +14,7 @@ import "../styles/auth.scss";
 export function Home() {
   const history = useHistory();
   const { user, signInWithGoogle } = useAuth();
-  const [roomCode, setRoomCode] = useState("");
+  const [roomId, setRoomId] = useState("");
 
   async function handleCreateRoom() {
     if (!user) {
@@ -27,16 +27,16 @@ export function Home() {
   async function handleJoinNewRoom(e: FormEvent) {
     e.preventDefault();
 
-    if (roomCode.trim() === "") return;
+    if (roomId.trim() === "") return;
 
-    const roomRef = await database.ref(`rooms/${roomCode}`).get();
+    const roomRef = await database.ref(`rooms/${roomId}`).get();
 
     if (!roomRef.exists()) {
       alert("Room does not exists");
       return;
     }
 
-    history.push(`/rooms/${roomCode}`);
+    history.push(`/rooms/${roomId}`);
   }
 
   return (
@@ -61,8 +61,8 @@ export function Home() {
             <input
               type="text"
               placeholder="Digite o código da sala"
-              onChange={(e) => setRoomCode(e.target.value)}
-              value={roomCode}
+              onChange={(e) => setRoomId(e.target.value)}
+              value={roomId}
             />
             <Button type="submit">Entrar na sala</Button>
           </form>
