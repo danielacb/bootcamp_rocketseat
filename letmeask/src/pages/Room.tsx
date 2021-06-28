@@ -5,6 +5,7 @@ import useAuth from "../hooks/useAuth";
 import { database } from "../services/firebase";
 import { Button } from "../components/Button";
 import { RoomCode } from "../components/RoomCode";
+import { Question } from "../components/Question";
 
 import logoImg from "../assets/images/logo.svg";
 
@@ -23,7 +24,7 @@ type FirebaseQuestions = Record<
   }
 >;
 
-type Question = {
+type QuestionType = {
   id: string;
   author: {
     name: string;
@@ -38,7 +39,7 @@ export function Room() {
   const { user } = useAuth();
   const { roomId } = useParams<{ roomId: string }>();
   const [newQuestion, setNewQuestion] = useState("");
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useState<QuestionType[]>([]);
   const [title, setTitle] = useState("");
 
   useEffect(() => {
@@ -125,6 +126,13 @@ export function Room() {
             </Button>
           </div>
         </form>
+        {questions.map((question) => (
+          <Question
+            key={question.id}
+            content={question.content}
+            author={question.author}
+          />
+        ))}
       </main>
     </div>
   );
