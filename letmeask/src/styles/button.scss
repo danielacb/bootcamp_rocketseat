@@ -1,13 +1,11 @@
 .btn {
-  background-color: #835afd;
   border-radius: 8px;
-  border: 0;
-  color: #f8f8f8;
+  height: 50px;
+
   cursor: pointer;
   font-weight: 500;
-  height: 50px;
   padding: 0 32px;
-  transition: filter 0.2s;
+  transition: 0.2s;
 
   display: flex;
   justify-content: center;
@@ -20,5 +18,29 @@
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+  }
+
+  &.small {
+    font-size: 14px;
+    font-weight: 500;
+    height: 40px;
+    line-height: 16px;
+  }
+
+  &.primary {
+    background-color: #835afd;
+    border: 0;
+    color: #f8f8f8;
+  }
+
+  &.secondary {
+    border: 1px solid #835afd;
+    color: #835afd;
+    background-color: transparent;
+
+    &:hover {
+      background-color: #835afd;
+      color: #f8f8f8;
+    }
   }
 }
