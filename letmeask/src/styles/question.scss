@@ -15,6 +15,9 @@
     margin-bottom: 24px;
   }
   footer {
+    display: flex;
+    justify-content: space-between;
+
     .user-info {
       align-items: center;
       display: flex;
@@ -29,6 +32,25 @@
         color: #737380;
         font-size: 14px;
         margin-left: 8px;
+      }
+    }
+
+    button {
+      border: 0;
+      background-color: transparent;
+      cursor: pointer;
+      vertical-align: middle;
+      transition: filter 0.2s;
+
+      &.like-button {
+        display: flex;
+        align-items: flex-end;
+        color: #737380;
+        gap: 8px;
+      }
+
+      &:hover {
+        filter: brightness(0.6);
       }
     }
   }

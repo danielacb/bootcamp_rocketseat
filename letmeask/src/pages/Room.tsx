@@ -7,6 +7,7 @@ import { database } from "../services/firebase";
 import { Button } from "../components/Button";
 import { RoomCode } from "../components/RoomCode";
 import { Question } from "../components/Question";
+import { Like } from "../components/Icons";
 
 import logoImg from "../assets/images/logo.svg";
 
@@ -36,6 +37,21 @@ export function Room() {
     await database.ref(`rooms/${roomId}/questions`).push(question);
 
     setNewQuestion("");
+  }
+
+  async function handleLikeQuestion(
+    questionId: string,
+    likeId: string | undefined
+  ) {
+    if (likeId) {
+      await database
+        .ref(`rooms/${roomId}/questions/${questionId}/likes/${likeId}`)
+        .remove();
+    } else {
+      await database.ref(`rooms/${roomId}/questions/${questionId}/likes`).push({
+        authorId: user?.id,
+      });
+    }
   }
 
   return (
@@ -86,7 +102,17 @@ export function Room() {
             key={question.id}
             content={question.content}
             author={question.author}
-          />
+          >
+            <button
+              className="like-button"
+              type="button"
+              aria-label="marcar como gostei"
+              onClick={() => handleLikeQuestion(question.id, question.likeId)}
+            >
+              {question.likesCount > 0 && <span>{question.likesCount}</span>}
+              <Like color={question.likeId ? "#835AFD" : "#737380"} />
+            </button>
+          </Question>
         ))}
       </main>
     </div>
