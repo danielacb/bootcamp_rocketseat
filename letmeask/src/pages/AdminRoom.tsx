@@ -9,6 +9,8 @@ import { database } from "../services/firebase";
 
 import logoImg from "../assets/images/logo.svg";
 import deleteImg from "../assets/images/delete.svg";
+import checkImg from "../assets/images/check.svg";
+import answerImg from "../assets/images/answer.svg";
 
 import "../styles/room.scss";
 
@@ -29,6 +31,24 @@ export function AdminRoom() {
     if (window.confirm("Tem certeza que você deseja excluir esta pergunta?")) {
       await database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
     }
+  }
+
+  async function handleAnsweredQuestion(
+    questionId: string,
+    isAnswered: boolean
+  ) {
+    await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
+      isAnswered: !isAnswered,
+    });
+  }
+
+  async function handleHighlightedQuestion(
+    questionId: string,
+    isHighlighted: boolean
+  ) {
+    await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
+      isHighlighted: !isHighlighted,
+    });
   }
 
   return (
@@ -62,7 +82,27 @@ export function AdminRoom() {
             key={question.id}
             content={question.content}
             author={question.author}
+            isAnswered={question.isAnswered}
+            isHighlighted={question.isHighlighted}
           >
+            <button
+              type="button"
+              onClick={() =>
+                handleAnsweredQuestion(question.id, question.isAnswered)
+              }
+            >
+              <img src={checkImg} alt="Marcar pergunta como respondida" />
+            </button>
+            {!question.isAnswered && (
+              <button
+                type="button"
+                onClick={() =>
+                  handleHighlightedQuestion(question.id, question.isHighlighted)
+                }
+              >
+                <img src={answerImg} alt="Responder pergunta" />
+              </button>
+            )}
             <button
               type="button"
               onClick={() => handleDeleteQuestion(question.id)}
