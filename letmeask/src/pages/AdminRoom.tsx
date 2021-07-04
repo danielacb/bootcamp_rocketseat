@@ -6,11 +6,9 @@ import { RoomCode } from "../components/RoomCode/RoomCode";
 import { Question } from "../components/Question/Question";
 import { Button } from "../components/Button/Button";
 import { database } from "../services/firebase";
+import { IconCheck, IconDelete, IconHighlight } from "../components/Icons";
 
 import logoImg from "../assets/images/logo.svg";
-import deleteImg from "../assets/images/delete.svg";
-import checkImg from "../assets/images/check.svg";
-import answerImg from "../assets/images/answer.svg";
 
 import "../styles/room.scss";
 
@@ -91,7 +89,10 @@ export function AdminRoom() {
                 handleAnsweredQuestion(question.id, question.isAnswered)
               }
             >
-              <img src={checkImg} alt="Marcar pergunta como respondida" />
+              <IconCheck
+                color={question.isAnswered ? "#835afd" : "#737380"}
+                hoverColor={"#835afd"}
+              />
             </button>
             {!question.isAnswered && (
               <button
@@ -100,14 +101,17 @@ export function AdminRoom() {
                   handleHighlightedQuestion(question.id, question.isHighlighted)
                 }
               >
-                <img src={answerImg} alt="Responder pergunta" />
+                <IconHighlight
+                  color={question.isHighlighted ? "#835afd" : "#737380"}
+                  hoverColor={"#835afd"}
+                />
               </button>
             )}
             <button
               type="button"
               onClick={() => handleDeleteQuestion(question.id)}
             >
-              <img src={deleteImg} alt="Remover Pergunta" />
+              <IconDelete color={"#737380"} hoverColor={"#835afd"} />
             </button>
           </Question>
         ))}

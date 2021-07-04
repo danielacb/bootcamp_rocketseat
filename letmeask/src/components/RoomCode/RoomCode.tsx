@@ -1,4 +1,4 @@
-import copyImg from "../../assets/images/copy.svg";
+import { IconCopy } from "../Icons";
 
 import "./room-code.scss";
 
@@ -14,7 +14,7 @@ export function RoomCode({ code }: RoomCodeProps) {
   return (
     <button className="room-code" onClick={copyRoomCodeToClipboard}>
       <div>
-        <img src={copyImg} alt="Copiar o código da sala" />
+        <IconCopy color="#f8f8f8" />
       </div>
       <span>Sala #{code}</span>
     </button>

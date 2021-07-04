@@ -7,7 +7,7 @@ import { database } from "../services/firebase";
 import { Button } from "../components/Button/Button";
 import { RoomCode } from "../components/RoomCode/RoomCode";
 import { Question } from "../components/Question/Question";
-import { Like } from "../components/Icons";
+import { IconLike } from "../components/Icons";
 
 import logoImg from "../assets/images/logo.svg";
 
@@ -113,7 +113,10 @@ export function Room() {
                 onClick={() => handleLikeQuestion(question.id, question.likeId)}
               >
                 {question.likesCount > 0 && <span>{question.likesCount}</span>}
-                <Like color={question.likeId ? "#835AFD" : "#737380"} />
+                <IconLike
+                  color={question.likeId ? "#835afd" : "#737380"}
+                  hoverColor={"#835afd"}
+                />
               </button>
             )}
           </Question>
