@@ -4,9 +4,9 @@ import { useParams } from "react-router";
 import useAuth from "../hooks/useAuth";
 import useRoom from "../hooks/useRoom";
 import { database } from "../services/firebase";
-import { Button } from "../components/Button";
-import { RoomCode } from "../components/RoomCode";
-import { Question } from "../components/Question";
+import { Button } from "../components/Button/Button";
+import { RoomCode } from "../components/RoomCode/RoomCode";
+import { Question } from "../components/Question/Question";
 import { Like } from "../components/Icons";
 
 import logoImg from "../assets/images/logo.svg";

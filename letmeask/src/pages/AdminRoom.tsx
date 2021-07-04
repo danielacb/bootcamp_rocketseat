@@ -2,9 +2,9 @@ import { useHistory } from "react-router-dom";
 import { useParams } from "react-router";
 
 import useRoom from "../hooks/useRoom";
-import { RoomCode } from "../components/RoomCode";
-import { Question } from "../components/Question";
-import { Button } from "../components/Button";
+import { RoomCode } from "../components/RoomCode/RoomCode";
+import { Question } from "../components/Question/Question";
+import { Button } from "../components/Button/Button";
 import { database } from "../services/firebase";
 
 import logoImg from "../assets/images/logo.svg";
