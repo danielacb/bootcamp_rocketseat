@@ -1,26 +1,24 @@
 #page-room {
+  margin-bottom: 80px;
+
   header {
     padding: 24px;
     border-bottom: 1px solid #e2e2e2;
 
     .content {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
       margin: 0 auto;
       max-width: 1120px;
 
       > a img {
+        margin-bottom: 24px;
         max-height: 45px;
       }
 
-      div {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-
-        button {
-          height: 40px;
+      button {
+        height: 40px;
+        width: 100%;
+        & + button {
+          margin-top: 24px;
         }
       }
     }
@@ -28,11 +26,10 @@
 
   main {
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 848px;
+    padding: 0 24px;
 
     .room-title {
-      align-items: center;
-      display: flex;
       margin: 32px 0 24px;
 
       h1 {
@@ -47,8 +44,9 @@
         color: #f8f8f8;
         font-size: 14px;
         font-weight: 500;
-        margin-left: 16px;
+        display: inline-block;
         padding: 8px 16px;
+        margin-top: 4px;
       }
     }
 
@@ -110,6 +108,53 @@
             font-weight: 500;
             margin-left: 8px;
           }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  #page-room {
+    header {
+      .content {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+
+        > a img {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 425px) {
+  #page-room {
+    header {
+      .content {
+        & > div {
+          align-items: center;
+          display: flex;
+          gap: 8px;
+        }
+        button {
+          width: auto;
+          & + button {
+            margin-top: 0;
+          }
+        }
+      }
+    }
+    main {
+      .room-title {
+        align-items: center;
+        display: flex;
+
+        span {
+          margin-left: 16px;
+          margin-top: 0;
         }
       }
     }
