@@ -24,3 +24,17 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+# react native
+.expo/
+dist/
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+react-native/plantmanager/node_modules/
