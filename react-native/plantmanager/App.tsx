@@ -1,12 +1,26 @@
 import React from "react";
 import { View, Platform, StatusBar, StyleSheet } from "react-native";
 import { Welcome } from "./src/screens/Welcome";
+import AppLoading from "expo-app-loading";
+
+import {
+  useFonts,
+  Jost_400Regular,
+  Jost_600SemiBold,
+} from "@expo-google-fonts/jost";
 
 export default function App() {
-  return (
+  const [fontsLoaded] = useFonts({
+    Jost_400Regular,
+    Jost_600SemiBold,
+  });
+
+  return fontsLoaded ? (
     <View style={styles.container}>
       <Welcome />
     </View>
+  ) : (
+    <AppLoading />
   );
 }
 
