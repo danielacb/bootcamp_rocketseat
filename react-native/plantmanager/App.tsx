@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Platform, StatusBar, StyleSheet } from "react-native";
-import { Welcome } from "./src/screens/Welcome";
+import UserIdentification from "./src/screens/UserIdentification";
 import AppLoading from "expo-app-loading";
 
 import {
@@ -17,7 +17,7 @@ export default function App() {
 
   return fontsLoaded ? (
     <View style={styles.container}>
-      <Welcome />
+      <UserIdentification />
     </View>
   ) : (
     <AppLoading />
