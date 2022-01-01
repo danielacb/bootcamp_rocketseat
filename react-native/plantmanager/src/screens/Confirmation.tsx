@@ -1,17 +1,22 @@
-import { Jost_200ExtraLight } from "@expo-google-fonts/jost";
 import React from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Button from "../components/Button";
+import { StackScreenProps } from "@react-navigation/stack";
+import { StackParamList } from "../routes/stack.routes";
 
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
 
-export default function Confirmation() {
+type ConfirmationProps = StackScreenProps<StackParamList, "Confirmation">;
+
+export default function Confirmation({ route }: ConfirmationProps) {
+  const { userName } = route.params;
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
         <Text style={styles.emoji}>😄</Text>
-        <Text style={styles.title}>That's it!</Text>
+        <Text style={styles.title}>{userName}, that's it!</Text>
         <Text style={styles.subtitle}>
           Now let's take good care of your plants!
         </Text>

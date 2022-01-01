@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   Dimensions,
   SafeAreaView,
@@ -13,7 +14,9 @@ import colors from "../styles/colors.ts";
 import fonts from "../styles/fonts";
 import Watering from "../assets/watering.png";
 
-export function Welcome() {
+export default function Welcome() {
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Manage your plants!</Text>
@@ -22,7 +25,11 @@ export function Welcome() {
 
       <Text style={styles.subtitle}>Never forget to water them!</Text>
 
-      <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+      <TouchableOpacity
+        style={styles.button}
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate("UserIdentification" as never)}
+      >
         <Entypo name="chevron-right" style={styles.buttonIcon} />
       </TouchableOpacity>
     </SafeAreaView>

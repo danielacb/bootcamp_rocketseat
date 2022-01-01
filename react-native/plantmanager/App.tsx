@@ -1,7 +1,7 @@
 import React from "react";
-import { View, Platform, StatusBar, StyleSheet } from "react-native";
-import UserIdentification from "./src/screens/UserIdentification";
 import AppLoading from "expo-app-loading";
+
+import Routes from "./src/routes";
 
 import {
   useFonts,
@@ -15,19 +15,6 @@ export default function App() {
     Jost_600SemiBold,
   });
 
-  return fontsLoaded ? (
-    <View style={styles.container}>
-      <UserIdentification />
-    </View>
-  ) : (
-    <AppLoading />
-  );
+  if (!fontsLoaded) return <AppLoading />;
+  return <Routes />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "white",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-  },
-});

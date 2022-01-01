@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/core";
 import {
+  Keyboard,
   KeyboardAvoidingView,
   SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
+  TouchableWithoutFeedback,
   View,
 } from "react-native";
 import Button from "../components/Button";
@@ -16,6 +19,8 @@ export default function UserIdentification() {
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
   const [name, setName] = useState<string>();
+
+  const navigation = useNavigation();
 
   function handleInputBlur() {
     setIsFocused(false);
@@ -34,29 +39,39 @@ export default function UserIdentification() {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={styles.container}>
-        <View style={styles.content}>
-          <View style={styles.form}>
-            <View style={{ alignItems: "center" }}>
-              <Text style={styles.emoji}>{isFilled ? "😄" : "😊"}</Text>
-              <Text style={styles.title}>How can we {"\n"}call you?</Text>
-            </View>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.content}>
+            <View style={styles.form}>
+              <View style={{ alignItems: "center" }}>
+                <Text style={styles.emoji}>{isFilled ? "😄" : "😊"}</Text>
+                <Text style={styles.title}>How can we {"\n"}call you?</Text>
+              </View>
 
-            <TextInput
-              style={[
-                styles.input,
-                (isFocused || isFilled) && { borderColor: colors.green },
-              ]}
-              onBlur={handleInputBlur}
-              onFocus={handleInputFocus}
-              onChangeText={handleInputChange}
-              placeholder="Type your name"
-            />
+              <TextInput
+                style={[
+                  styles.input,
+                  (isFocused || isFilled) && { borderColor: colors.green },
+                ]}
+                onBlur={handleInputBlur}
+                onFocus={handleInputFocus}
+                onChangeText={handleInputChange}
+                placeholder="Type your name"
+              />
 
-            <View style={styles.footer}>
-              <Button title="Continue" />
+              <View style={styles.footer}>
+                <Button
+                  title="Continue"
+                  onPress={() =>
+                    navigation.navigate(
+                      "Confirmation" as never,
+                      { userName: name } as never
+                    )
+                  }
+                />
+              </View>
             </View>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
