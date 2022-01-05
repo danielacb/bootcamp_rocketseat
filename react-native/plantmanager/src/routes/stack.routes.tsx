@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Confirmation from "../screens/Confirmation";
 import UserIdentification from "../screens/UserIdentification";
 import Welcome from "../screens/Welcome";
+import PlantSelection from "../screens/PlantSelection";
 
 import colors from "../styles/colors";
 
@@ -11,6 +12,7 @@ export type StackParamList = {
   Welcome: undefined;
   UserIdentification: undefined;
   Confirmation: { userName: string };
+  PlantSelection: { userName: string };
 };
 
 const stackRoutes = createStackNavigator<StackParamList>();
@@ -30,6 +32,7 @@ const AppRoutes: React.FC = () => (
       component={UserIdentification}
     />
     <stackRoutes.Screen name="Confirmation" component={Confirmation} />
+    <stackRoutes.Screen name="PlantSelection" component={PlantSelection} />
   </stackRoutes.Navigator>
 );
 

@@ -36,5 +36,6 @@ const styles = StyleSheet.create({
     color: colors.heading,
     fontFamily: fonts.heading,
     marginVertical: 16,
+    textAlign: "center",
   },
 });

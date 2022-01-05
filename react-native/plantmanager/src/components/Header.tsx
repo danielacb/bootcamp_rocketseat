@@ -6,12 +6,16 @@ import ProfileImage from "../assets/profile.png";
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
 
-export default function Header() {
+type HeaderProps = {
+  name: string;
+};
+
+export default function Header({ name }: HeaderProps) {
   return (
     <View style={styles.container}>
       <View>
         <Text style={styles.greeting}>Hi,</Text>
-        <Text style={styles.userName}>Nome</Text>
+        <Text style={styles.userName}>{name}</Text>
       </View>
       <Image source={ProfileImage} style={styles.image} />
     </View>

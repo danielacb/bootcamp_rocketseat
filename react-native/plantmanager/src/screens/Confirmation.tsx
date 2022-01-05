@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Button from "../components/Button";
 import { StackScreenProps } from "@react-navigation/stack";
 import { StackParamList } from "../routes/stack.routes";
+import { useNavigation } from "@react-navigation/core";
 
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
@@ -11,6 +12,8 @@ type ConfirmationProps = StackScreenProps<StackParamList, "Confirmation">;
 
 export default function Confirmation({ route }: ConfirmationProps) {
   const { userName } = route.params;
+
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -22,7 +25,15 @@ export default function Confirmation({ route }: ConfirmationProps) {
         </Text>
       </View>
       <View style={styles.footer}>
-        <Button title="Let's go" />
+        <Button
+          title="Let's go"
+          onPress={() =>
+            navigation.navigate(
+              "PlantSelection" as never,
+              { userName } as never
+            )
+          }
+        />
       </View>
     </SafeAreaView>
   );
