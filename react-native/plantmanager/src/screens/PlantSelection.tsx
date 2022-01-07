@@ -6,6 +6,7 @@ import { StackParamList } from "../routes/stack.routes";
 import Header from "../components/Header";
 import RoomTag from "../components/RoomTag";
 import PlantCardPrimary from "../components/PlantCardPrimary";
+import Loading from "../components/Loading";
 
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
@@ -36,6 +37,7 @@ export default function PlantSelection({ route }: PlantSelectionProps) {
   const [plants, setPlants] = useState<PlantProps[]>([]);
   const [filteredPlants, setFilteredPlants] = useState<PlantProps[]>([]);
   const [selectedEnvironment, setSelectedEnvironment] = useState("all");
+  const [loading, setLoading] = useState(true);
   const { userName } = route.params;
 
   useEffect(() => {
@@ -52,6 +54,7 @@ export default function PlantSelection({ route }: PlantSelectionProps) {
     async function fetchPlants() {
       const { data } = await api.get("plants?_sort=name&_order=asc");
       setPlants(data);
+      setLoading(false);
     }
     fetchPlants();
   }, []);
@@ -67,6 +70,8 @@ export default function PlantSelection({ route }: PlantSelectionProps) {
 
     setFilteredPlants(filtered);
   }
+
+  if (loading) return <Loading />;
 
   return (
     <View style={styles.container}>
