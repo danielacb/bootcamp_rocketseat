@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 
 import { StackParamList } from "../routes/stack.routes";
@@ -37,7 +43,12 @@ export default function PlantSelection({ route }: PlantSelectionProps) {
   const [plants, setPlants] = useState<PlantProps[]>([]);
   const [filteredPlants, setFilteredPlants] = useState<PlantProps[]>([]);
   const [selectedEnvironment, setSelectedEnvironment] = useState("all");
+
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [loadingMore, setLoadingMore] = useState(true);
+  const [loadedAll, setLoadedAll] = useState(false);
+
   const { userName } = route.params;
 
   useEffect(() => {
@@ -50,12 +61,25 @@ export default function PlantSelection({ route }: PlantSelectionProps) {
     fetchEnvironment();
   }, []);
 
-  useEffect(() => {
-    async function fetchPlants() {
-      const { data } = await api.get("plants?_sort=name&_order=asc");
+  async function fetchPlants() {
+    const { data } = await api.get(
+      `plants?_sort=name&_order=asc&_page=${page}&_limit=8`
+    );
+
+    if (!data) return setLoading(true);
+
+    if (page > 1) {
+      setPlants((prevState) => [...prevState, ...data]);
+      setFilteredPlants((prevState) => [...prevState, ...data]);
+    } else {
       setPlants(data);
-      setLoading(false);
+      setFilteredPlants(data);
     }
+    setLoading(false);
+    setLoadingMore(false);
+  }
+
+  useEffect(() => {
     fetchPlants();
   }, []);
 
@@ -69,6 +93,14 @@ export default function PlantSelection({ route }: PlantSelectionProps) {
     );
 
     setFilteredPlants(filtered);
+  }
+
+  function handleFetchMore(distance: number) {
+    if (distance < 1) return;
+
+    setLoadingMore(true);
+    setPage((page) => page + 1);
+    fetchPlants();
   }
 
   if (loading) return <Loading />;
@@ -104,6 +136,13 @@ export default function PlantSelection({ route }: PlantSelectionProps) {
           showsVerticalScrollIndicator={false}
           numColumns={2}
           contentContainerStyle={styles.plantsList}
+          onEndReachedThreshold={0.1}
+          onEndReached={({ distanceFromEnd }) =>
+            handleFetchMore(distanceFromEnd)
+          }
+          ListFooterComponent={
+            loadingMore ? <ActivityIndicator color={colors.green} /> : <></>
+          }
         />
       </View>
     </View>
