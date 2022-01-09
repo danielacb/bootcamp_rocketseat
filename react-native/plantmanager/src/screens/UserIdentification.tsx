@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/core";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
+  Alert,
   Keyboard,
   KeyboardAvoidingView,
   SafeAreaView,
@@ -10,6 +12,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+
 import Button from "../components/Button";
 
 import colors from "../styles/colors";
@@ -36,6 +39,13 @@ export default function UserIdentification() {
     setName(value);
   }
 
+  async function handleSubmit() {
+    if (!name) return Alert.alert("Tell us your name first!");
+
+    await AsyncStorage.setItem("@plantmanager:user", name);
+    navigation.navigate("Confirmation" as never);
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={styles.container}>
@@ -59,15 +69,7 @@ export default function UserIdentification() {
               />
 
               <View style={styles.footer}>
-                <Button
-                  title="Continue"
-                  onPress={() =>
-                    navigation.navigate(
-                      "Confirmation" as never,
-                      { userName: name } as never
-                    )
-                  }
-                />
+                <Button title="Continue" onPress={handleSubmit} />
               </View>
             </View>
           </View>

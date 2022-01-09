@@ -6,9 +6,7 @@ import {
   Text,
   View,
 } from "react-native";
-import { StackScreenProps } from "@react-navigation/stack";
 
-import { StackParamList } from "../routes/stack.routes";
 import Header from "../components/Header";
 import RoomTag from "../components/RoomTag";
 import PlantCardPrimary from "../components/PlantCardPrimary";
@@ -17,8 +15,6 @@ import Loading from "../components/Loading";
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
 import api from "../services/api";
-
-type PlantSelectionProps = StackScreenProps<StackParamList, "Confirmation">;
 
 type EnvironmentProps = {
   key: string;
@@ -38,7 +34,7 @@ type PlantProps = {
   };
 };
 
-export default function PlantSelection({ route }: PlantSelectionProps) {
+export default function PlantSelection() {
   const [environments, setEnvironments] = useState<EnvironmentProps[]>([]);
   const [plants, setPlants] = useState<PlantProps[]>([]);
   const [filteredPlants, setFilteredPlants] = useState<PlantProps[]>([]);
@@ -47,9 +43,6 @@ export default function PlantSelection({ route }: PlantSelectionProps) {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(true);
-  const [loadedAll, setLoadedAll] = useState(false);
-
-  const { userName } = route.params;
 
   useEffect(() => {
     async function fetchEnvironment() {
@@ -108,7 +101,7 @@ export default function PlantSelection({ route }: PlantSelectionProps) {
   return (
     <View style={styles.container}>
       <View style={styles.padding}>
-        <Header name={userName} />
+        <Header />
         <Text style={styles.title}>Em qual ambiente</Text>
         <Text style={styles.subtitle}>você quer colocar sua planta?</Text>
       </View>

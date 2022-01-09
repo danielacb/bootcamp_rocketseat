@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Button from "../components/Button";
-import { StackScreenProps } from "@react-navigation/stack";
-import { StackParamList } from "../routes/stack.routes";
 import { useNavigation } from "@react-navigation/core";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
 
-type ConfirmationProps = StackScreenProps<StackParamList, "Confirmation">;
+export default function Confirmation() {
+  const [userName, setUserName] = useState<string>();
 
-export default function Confirmation({ route }: ConfirmationProps) {
-  const { userName } = route.params;
+  useEffect(() => {
+    async function getUserName() {
+      const user = await AsyncStorage.getItem("@plantmanager:user");
+      setUserName(user || "");
+    }
+
+    getUserName();
+  }, []);
 
   const navigation = useNavigation();
 
@@ -27,12 +33,7 @@ export default function Confirmation({ route }: ConfirmationProps) {
       <View style={styles.footer}>
         <Button
           title="Let's go"
-          onPress={() =>
-            navigation.navigate(
-              "PlantSelection" as never,
-              { userName } as never
-            )
-          }
+          onPress={() => navigation.navigate("PlantSelection" as never)}
         />
       </View>
     </SafeAreaView>
