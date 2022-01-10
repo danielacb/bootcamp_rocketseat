@@ -4,15 +4,17 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Confirmation from "../screens/Confirmation";
 import UserIdentification from "../screens/UserIdentification";
 import Welcome from "../screens/Welcome";
-import PlantSelection from "../screens/PlantSelection";
+import PlantSelection, { PlantProps } from "../screens/PlantSelection";
 
 import colors from "../styles/colors";
+import SelectedPlant from "../screens/SelectedPlant";
 
 export type StackParamList = {
   Welcome: undefined;
   UserIdentification: undefined;
-  Confirmation: { userName: string };
-  PlantSelection: { userName: string };
+  Confirmation: undefined;
+  PlantSelection: undefined;
+  SelectedPlant: { plant: PlantProps };
 };
 
 const stackRoutes = createStackNavigator<StackParamList>();
@@ -33,6 +35,7 @@ const AppRoutes: React.FC = () => (
     />
     <stackRoutes.Screen name="Confirmation" component={Confirmation} />
     <stackRoutes.Screen name="PlantSelection" component={PlantSelection} />
+    <stackRoutes.Screen name="SelectedPlant" component={SelectedPlant} />
   </stackRoutes.Navigator>
 );
 

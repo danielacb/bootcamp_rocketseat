@@ -6,6 +6,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { useNavigation } from "@react-navigation/core";
 
 import Header from "../components/Header";
 import RoomTag from "../components/RoomTag";
@@ -21,7 +22,7 @@ type EnvironmentProps = {
   title: string;
 };
 
-type PlantProps = {
+export type PlantProps = {
   id: string;
   name: string;
   about: string;
@@ -43,6 +44,8 @@ export default function PlantSelection() {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(true);
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     async function fetchEnvironment() {
@@ -96,6 +99,10 @@ export default function PlantSelection() {
     fetchPlants();
   }
 
+  function handleCardClick(plant: PlantProps) {
+    navigation.navigate("SelectedPlant" as never, { plant } as never);
+  }
+
   if (loading) return <Loading />;
 
   return (
@@ -127,7 +134,12 @@ export default function PlantSelection() {
         <FlatList
           data={filteredPlants}
           keyExtractor={(item) => String(item.id)}
-          renderItem={({ item }) => <PlantCardPrimary data={item} />}
+          renderItem={({ item }) => (
+            <PlantCardPrimary
+              data={item}
+              onPress={() => handleCardClick(item)}
+            />
+          )}
           showsVerticalScrollIndicator={false}
           numColumns={2}
           contentContainerStyle={styles.plantsList}
