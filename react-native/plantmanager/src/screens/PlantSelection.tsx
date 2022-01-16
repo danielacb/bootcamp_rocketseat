@@ -13,6 +13,7 @@ import RoomTag from "../components/RoomTag";
 import PlantCardPrimary from "../components/PlantCardPrimary";
 import Loading from "../components/Loading";
 
+import PlantProps from "../types/plant";
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
 import api from "../services/api";
@@ -20,19 +21,6 @@ import api from "../services/api";
 type EnvironmentProps = {
   key: string;
   title: string;
-};
-
-export type PlantProps = {
-  id: string;
-  name: string;
-  about: string;
-  water_tips: string;
-  photo: string;
-  environments: string[];
-  frequency: {
-    times: number;
-    repeat_every: string;
-  };
 };
 
 export default function PlantSelection() {

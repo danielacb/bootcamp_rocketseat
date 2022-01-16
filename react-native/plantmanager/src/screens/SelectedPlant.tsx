@@ -14,19 +14,20 @@ import { useRoute } from "@react-navigation/core";
 import DateTimePicker, { Event } from "@react-native-community/datetimepicker";
 import { format, isBefore } from "date-fns";
 
-import { PlantProps } from "./PlantSelection";
+import PlantProps from "../types/plant";
 import Button from "../components/Button";
 
 import WaterDrop from "../assets/waterdrop.png";
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
+import { loadPlant, savePlant } from "../libs/storage";
 
 interface Params {
   plant: PlantProps;
 }
 
 export default function SelectedPlant() {
-  const [selectedDateTime, setSelectedDateTime] = useState<Date>();
+  const [selectedDateTime, setSelectedDateTime] = useState<Date>(new Date());
   const [showDatePicker, setShowDatePicker] = useState(Platform.OS === "ios");
   const route = useRoute();
 
@@ -41,6 +42,17 @@ export default function SelectedPlant() {
     }
 
     if (dateTime) setSelectedDateTime(dateTime);
+  }
+
+  async function handleSubmit() {
+    try {
+      await savePlant({
+        ...plant,
+        dateTimeNotification: selectedDateTime,
+      });
+    } catch (error) {
+      Alert.alert("Could not save the plant! Please try again!");
+    }
   }
 
   return (
@@ -81,7 +93,7 @@ export default function SelectedPlant() {
           </TouchableOpacity>
         )}
 
-        <Button title="Cadastrar planta" />
+        <Button title="Cadastrar planta" onPress={handleSubmit} />
       </View>
     </View>
   );

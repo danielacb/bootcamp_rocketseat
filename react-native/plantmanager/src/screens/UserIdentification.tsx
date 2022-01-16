@@ -42,8 +42,13 @@ export default function UserIdentification() {
   async function handleSubmit() {
     if (!name) return Alert.alert("Tell us your name first!");
 
-    await AsyncStorage.setItem("@plantmanager:user", name);
-    navigation.navigate("Confirmation" as never);
+    try {
+      await AsyncStorage.setItem("@plantmanager:user", name);
+      navigation.navigate("Confirmation" as never);
+    } catch (error) {
+      if (!name)
+        return Alert.alert("Could not save your name! Please try again!");
+    }
   }
 
   return (
