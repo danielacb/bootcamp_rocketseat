@@ -4,15 +4,22 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Confirmation from "../screens/Confirmation";
 import UserIdentification from "../screens/UserIdentification";
 import Welcome from "../screens/Welcome";
-import PlantSelection, { PlantProps } from "../screens/PlantSelection";
+import PlantSelection from "../screens/PlantSelection";
 
 import colors from "../styles/colors";
 import SelectedPlant from "../screens/SelectedPlant";
+import PlantProps from "../types/plant";
 
 export type StackParamList = {
   Welcome: undefined;
   UserIdentification: undefined;
-  Confirmation: undefined;
+  Confirmation: {
+    title: string;
+    subtitle: string;
+    buttonTitle: string;
+    icon: "smile" | "hug";
+    nextScreen: string;
+  };
   PlantSelection: undefined;
   SelectedPlant: { plant: PlantProps };
 };

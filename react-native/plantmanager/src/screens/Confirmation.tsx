@@ -1,11 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Button from "../components/Button";
-import { useNavigation } from "@react-navigation/core";
+import { useNavigation, useRoute } from "@react-navigation/core";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
+
+export interface ConfirmationParams {
+  title: string;
+  subtitle: string;
+  buttonTitle: string;
+  icon: "smile" | "hug";
+  nextScreen: string;
+}
+
+const emojis = {
+  hug: "🤗",
+  smile: "😄",
+};
 
 export default function Confirmation() {
   const [userName, setUserName] = useState<string>();
@@ -20,20 +33,22 @@ export default function Confirmation() {
   }, []);
 
   const navigation = useNavigation();
+  const routes = useRoute();
+
+  const { title, subtitle, buttonTitle, icon, nextScreen } =
+    routes.params as ConfirmationParams;
 
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text style={styles.emoji}>😄</Text>
-        <Text style={styles.title}>{userName}, that's it!</Text>
-        <Text style={styles.subtitle}>
-          Now let's take good care of your plants!
-        </Text>
+        <Text style={styles.emoji}>{emojis[icon]}</Text>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.subtitle}>{subtitle}</Text>
       </View>
       <View style={styles.footer}>
         <Button
-          title="Let's go"
-          onPress={() => navigation.navigate("PlantSelection" as never)}
+          title={buttonTitle}
+          onPress={() => navigation.navigate(nextScreen as never)}
         />
       </View>
     </SafeAreaView>

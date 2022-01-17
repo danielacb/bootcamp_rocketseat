@@ -17,6 +17,7 @@ import Button from "../components/Button";
 
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
+import { ConfirmationParams } from "./Confirmation";
 
 export default function UserIdentification() {
   const [isFocused, setIsFocused] = useState(false);
@@ -44,7 +45,16 @@ export default function UserIdentification() {
 
     try {
       await AsyncStorage.setItem("@plantmanager:user", name);
-      navigation.navigate("Confirmation" as never);
+      navigation.navigate(
+        "Confirmation" as never,
+        {
+          title: `${name}, that's it!`,
+          subtitle: `Now let's take good care of your plants!`,
+          buttonTitle: `Let's go!`,
+          icon: "smile",
+          nextScreen: "PlantSelection",
+        } as never
+      );
     } catch (error) {
       if (!name)
         return Alert.alert("Could not save your name! Please try again!");
