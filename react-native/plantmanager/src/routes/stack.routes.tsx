@@ -9,6 +9,7 @@ import PlantSelection from "../screens/PlantSelection";
 import colors from "../styles/colors";
 import SelectedPlant from "../screens/SelectedPlant";
 import PlantProps from "../types/plant";
+import MyPlants from "../screens/MyPlants";
 
 export type StackParamList = {
   Welcome: undefined;
@@ -22,6 +23,7 @@ export type StackParamList = {
   };
   PlantSelection: undefined;
   SelectedPlant: { plant: PlantProps };
+  MyPlants: undefined;
 };
 
 const stackRoutes = createStackNavigator<StackParamList>();
@@ -43,6 +45,7 @@ const AppRoutes: React.FC = () => (
     <stackRoutes.Screen name="Confirmation" component={Confirmation} />
     <stackRoutes.Screen name="PlantSelection" component={PlantSelection} />
     <stackRoutes.Screen name="SelectedPlant" component={SelectedPlant} />
+    <stackRoutes.Screen name="MyPlants" component={MyPlants} />
   </stackRoutes.Navigator>
 );
 
