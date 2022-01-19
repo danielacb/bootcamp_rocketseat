@@ -9,6 +9,8 @@ import { formatDistance } from "date-fns";
 import { pt } from "date-fns/locale";
 
 import colors from "../styles/colors";
+import fonts from "../styles/fonts";
+import PlantCardSecondary from "../components/PlantCardSecondary";
 
 export default function MyPlants() {
   const [plants, setPlants] = useState<PlantProps[]>([]);
@@ -50,9 +52,14 @@ export default function MyPlants() {
         <FlatList
           data={plants}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Text>{item.name}</Text>}
+          renderItem={({ item }) => (
+            <PlantCardSecondary
+              name={item.name}
+              photo={item.photo}
+              hour={item.dateTimeNotification}
+            />
+          )}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ flex: 1 }}
         />
       </View>
     </View>
@@ -64,7 +71,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     paddingHorizontal: 32,
-    paddingTop: 50,
     backgroundColor: colors.background,
   },
   spotlight: {
@@ -86,6 +92,15 @@ const styles = StyleSheet.create({
     lineHeight: 23,
     maxWidth: 164,
   },
-  plants: {},
-  title: {},
+  plants: {
+    flex: 1,
+    width: "100%",
+  },
+  title: {
+    fontFamily: fonts.heading,
+    fontSize: 24,
+    color: colors.heading,
+    marginTop: 32,
+    marginBottom: 16,
+  },
 });
