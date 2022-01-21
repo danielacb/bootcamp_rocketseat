@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import { formatDistance } from "date-fns";
+import { pt } from "date-fns/locale";
 
 import Header from "../components/Header";
 import WaterDrop from "../assets/waterdrop.png";
 import PlantProps from "../types/plant";
 import { loadPlant } from "../libs/storage";
-import { formatDistance } from "date-fns";
-import { pt } from "date-fns/locale";
+import Loading from "../components/Loading";
+import PlantCardSecondary from "../components/PlantCardSecondary";
 
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
-import PlantCardSecondary from "../components/PlantCardSecondary";
 
 export default function MyPlants() {
   const [plants, setPlants] = useState<PlantProps[]>([]);
-  const [loading, setloading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [nextWatered, setNextWatered] = useState("");
 
   useEffect(() => {
@@ -27,14 +28,17 @@ export default function MyPlants() {
       );
 
       setNextWatered(
-        `Não esqueça de regar a ${plantStorage[0].name} à ${nextTime} horas`
+        `Não esqueça de regar a ${plantStorage[0].name} às ${nextTime} horas`
       );
 
       setPlants(plantStorage);
+      setLoading(false);
     }
 
     loadStorageData();
   }, []);
+
+  if (loading) return <Loading />;
 
   return (
     <View style={styles.container}>
@@ -42,9 +46,7 @@ export default function MyPlants() {
 
       <View style={styles.spotlight}>
         <Image source={WaterDrop} style={styles.spotlightImage} />
-        <Text style={styles.spotlightText}>
-          Regue sua Aningapara daqui 2 horas
-        </Text>
+        <Text style={styles.spotlightText}>{nextWatered}</Text>
       </View>
 
       <View style={styles.plants}>
