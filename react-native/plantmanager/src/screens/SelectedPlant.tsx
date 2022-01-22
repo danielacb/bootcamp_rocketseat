@@ -13,6 +13,7 @@ import { getBottomSpace } from "react-native-iphone-x-helper";
 import { useNavigation, useRoute } from "@react-navigation/core";
 import DateTimePicker, { Event } from "@react-native-community/datetimepicker";
 import { format, isBefore } from "date-fns";
+import { ScrollView } from "react-native-gesture-handler";
 
 import PlantProps from "../types/plant";
 import Button from "../components/Button";
@@ -70,7 +71,10 @@ export default function SelectedPlant() {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.container}
+    >
       <View style={styles.plantInfo}>
         <SvgFromUri uri={plant.photo} height={150} width={150} />
         <Text style={styles.plantName}>{plant.name}</Text>
@@ -109,7 +113,7 @@ export default function SelectedPlant() {
 
         <Button title="Cadastrar planta" onPress={handleSubmit} />
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
