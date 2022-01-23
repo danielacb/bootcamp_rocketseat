@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import { Alert, FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { formatDistance } from "date-fns";
 import { pt } from "date-fns/locale";
 
 import Header from "../components/Header";
 import WaterDrop from "../assets/waterdrop.png";
 import PlantProps from "../types/plant";
-import { loadPlant } from "../libs/storage";
+import { loadPlant, removePlant } from "../libs/storage";
 import Loading from "../components/Loading";
 import PlantCardSecondary from "../components/PlantCardSecondary";
 
@@ -38,6 +38,29 @@ export default function MyPlants() {
     loadStorageData();
   }, []);
 
+  function handleRemove(plant: PlantProps) {
+    Alert.alert("Remover", `Deseja remover a ${plant.name}?`, [
+      {
+        text: "Não 🙏🏼",
+        style: "cancel",
+      },
+      {
+        text: "Sim 😢",
+        onPress: async () => {
+          try {
+            await removePlant(plant.id);
+
+            setPlants((prevState) =>
+              prevState.filter((item) => item.id !== plant.id)
+            );
+          } catch (error) {
+            Alert.alert("Não foi possível remover! 😢");
+          }
+        },
+      },
+    ]);
+  }
+
   if (loading) return <Loading />;
 
   return (
@@ -56,9 +79,8 @@ export default function MyPlants() {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <PlantCardSecondary
-              name={item.name}
-              photo={item.photo}
-              hour={item.dateTimeNotification}
+              data={item}
+              handleRemove={() => handleRemove(item)}
             />
           )}
           showsVerticalScrollIndicator={false}
