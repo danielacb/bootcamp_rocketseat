@@ -1,4 +1,5 @@
 import React from "react";
+import { Platform } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import MyPlants from "../screens/MyPlants";
@@ -17,7 +18,7 @@ const AuthRoutes = () => {
         inactiveTintColor: colors.heading,
         labelPosition: "beside-icon",
         styles: {
-          paddingVertical: 20,
+          paddingVertical: Platform.OS === "ios" ? 20 : 0,
           height: 88,
         },
       }}
