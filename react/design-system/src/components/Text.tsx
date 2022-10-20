@@ -8,8 +8,6 @@ export interface TextProps {
   asChild: boolean;
 }
 
-("text-gray-100 font-sans");
-
 export function Text({ children, size = "md", asChild }: TextProps) {
   const Comp = asChild ? Slot : "span";
 
