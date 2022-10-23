@@ -5,7 +5,7 @@ import clsx from "clsx";
 export interface TextProps {
   children: ReactNode;
   size?: "sm" | "md" | "lg";
-  asChild: boolean;
+  asChild?: boolean;
 }
 
 export function Text({ children, size = "md", asChild }: TextProps) {
