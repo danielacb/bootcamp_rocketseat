@@ -8,6 +8,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'react/design-system/**'
 
 jobs:
   build-and-deploy:
