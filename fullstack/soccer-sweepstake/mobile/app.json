@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "nlwcopamobile",
-    "slug": "nlwcopamobile",
+    "name": "soccer-sweepstake",
+    "slug": "soccer-sweepstake",
+    "scheme": "soccer-sweepstake",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
