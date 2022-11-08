@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { FlatList, useToast } from "native-base";
+import { EmptyMyPoolList } from "./EmptyMyPoolList";
 
-// import { api } from '../services/api';
+import { api } from "../services/api";
 
 import { Loading } from "./Loading";
 import { Game, GameProps } from "../components/Game";
 
 interface Props {
   poolId: string;
+  code: string;
 }
 
-export function Guesses({ poolId }: Props) {
+export function Guesses({ poolId, code }: Props) {
   const [isLoading, setIsLoading] = useState(true);
   const [games, setGames] = useState<GameProps[]>([]);
   const [firstTeamPoints, setFirstTeamPoints] = useState("");
@@ -22,12 +24,12 @@ export function Guesses({ poolId }: Props) {
     try {
       setIsLoading(true);
 
-      // const response = await api.get(`/pools/${poolId}/games`);
-      // setGames(response.data.games);
-      // console.log(response.data.games);
+      const response = await api.get(`/pools/${poolId}/games`);
+      setGames(response.data.games);
+      console.log(response.data.games);
     } catch (error) {
       toast.show({
-        title: "Não foi possível listar os jogos",
+        title: "Unable to list games",
         placement: "top",
         bgColor: "red.500",
       });
@@ -38,21 +40,21 @@ export function Guesses({ poolId }: Props) {
 
   async function handleGuessConfirm(gameId: string) {
     try {
-      if (!firstTeamPoints || !secondTeamPoints) {
+      if (!firstTeamPoints.trim() || !secondTeamPoints.trim()) {
         return toast.show({
-          title: "Informe o placar para palpitar",
+          title: "Guess the score",
           placement: "top",
           bgColor: "red.500",
         });
       }
 
-      // await api.post(`/pools/${poolId}/games/${gameId}/guesses`, {
-      //   firstTeamPoints: Number(firstTeamPoints),
-      //   secondTeamPoints: Number(secondTeamPoints),
-      // });
+      await api.post(`/pools/${poolId}/games/${gameId}/guesses`, {
+        firstTeamPoints: Number(firstTeamPoints),
+        secondTeamPoints: Number(secondTeamPoints),
+      });
 
       toast.show({
-        title: "Palpite realizado com sucesso",
+        title: "Guess was sent successfully",
         placement: "top",
         bgColor: "green.500",
       });
@@ -62,7 +64,7 @@ export function Guesses({ poolId }: Props) {
       console.log(error);
 
       toast.show({
-        title: "Não foi possível enviar o palpite",
+        title: "Unable to submit guess",
         placement: "top",
         bgColor: "red.500",
       });
@@ -90,6 +92,7 @@ export function Guesses({ poolId }: Props) {
         />
       )}
       _contentContainerStyle={{ pb: 10 }}
+      ListEmptyComponent={() => <EmptyMyPoolList code={code} />}
     />
   );
 }

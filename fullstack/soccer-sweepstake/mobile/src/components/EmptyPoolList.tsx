@@ -4,7 +4,7 @@ export function EmptyPoolList() {
   return (
     <Row flexWrap="wrap" justifyContent="center">
       <Text color="white" fontSize="sm" textAlign="center">
-        Você ainda não está participando de {"\n"} nenhum bolão, que tal
+        You are not participating in any pools yet
       </Text>
 
       <Pressable>
@@ -13,17 +13,17 @@ export function EmptyPoolList() {
           color="yellow.500"
           textDecoration="underline"
         >
-          buscar um por código
+          search by code
         </Text>
       </Pressable>
 
       <Text color="white" fontSize="sm" textAlign="center" mx={1}>
-        ou
+        or
       </Text>
 
       <Pressable>
         <Text textDecorationLine="underline" color="yellow.500">
-          criar um novo
+          create a new one
         </Text>
       </Pressable>
 
