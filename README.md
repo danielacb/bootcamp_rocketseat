@@ -7,3 +7,4 @@ This repository is a collection of projects developed during a few coding bootca
 - **Moveit**: Next.js, Typescript and Styled-components;
 - **Podcastr**: Next.js, Typsscript, SASS and Axios;
 - **Letmeask**: React, Typescript and Firebase;
+- **Design System**: React, Typescript, Storybook, Radix UI and Tailwind;
