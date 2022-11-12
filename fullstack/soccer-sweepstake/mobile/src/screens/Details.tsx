@@ -77,12 +77,12 @@ export function Details() {
 
           <HStack bgColor="gray.800" p={1} rounded="sm" mb={8}>
             <Option
-              title="Seus palpites"
+              title="Your guesses"
               isSelected={optionSelected === "guesses"}
               onPress={() => setOptionSelected("guesses")}
             />
             <Option
-              title="Ranking do grupo"
+              title="Group Ranking"
               isSelected={optionSelected === "ranking"}
               onPress={() => setOptionSelected("ranking")}
             />

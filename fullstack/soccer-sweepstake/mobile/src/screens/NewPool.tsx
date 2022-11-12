@@ -18,7 +18,7 @@ export function NewPool() {
   async function handlePoolCreate() {
     if (!title.trim()) {
       return toast.show({
-        title: "Informer um nome para o seu bolão",
+        title: "Enter a name for your pool",
         placement: "top",
         bgColor: "red.500",
       });
@@ -30,7 +30,7 @@ export function NewPool() {
       await api.post("/pools", { title: title.toUpperCase() });
 
       toast.show({
-        title: "Bolão criado com sucesso!",
+        title: "Pool created successfully!",
         placement: "top",
         bgColor: "green.500",
       });
@@ -39,7 +39,7 @@ export function NewPool() {
     } catch (error) {
       console.log(error);
       toast.show({
-        title: "Não foi possível criar o bolão",
+        title: "Could not create pool",
         placement: "top",
         bgColor: "red.500",
       });
